@@ -10,37 +10,42 @@ class Pata {
     void init();
 };
 
-Servo servo1;
+Servo servos[14];
 int angulo;
-
 
 Pata::Pata(int n) {
   pin = n;
 }
 
 void Pata::init() {
-  servo1.attach(pin);
+  servos[pin].attach(pin);
   pos = 90;
-  servo1.write(pos);
+  servos[pin].write(pos);
+  servos[pin].detach();
 }
 
 void Pata::move(int n) {
+  servos[pin].attach(pin);
   for (int i=0; i<abs(pos-n); i++){
     delay(7);
     if(pos > n) {
-        servo1.write(pos - i);
+        servos[pin].write(pos - i);
     } else {
-        servo1.write(pos + i);
+        servos[pin].write(pos + i);
     }
   }
+  servos[pin].write(n);
   pos = n;
+  servos[pin].detach();
 };
 
-Pata pata(11);
+Pata pata1(10);
+Pata pata2(11);
 
 void setup() {
   Serial.begin(9600);
-  pata.init();
+  pata1.init();
+  pata2.init();
   // Mensaje inicial en el monitor serial
   Serial.println("Escribir la posicion de angulo de 0 a 180: ");
 }
@@ -50,7 +55,11 @@ void loop() {
    delay(10);
  
    angulo = Serial.parseInt(); // Lee solo los datos tipo int del buffer
-   pata.move(angulo); // Escritura de microsegundos ingresado por Monitor Serial
+   if(angulo > 1) {
+     pata2.move(angulo);
+     pata1.move(angulo);
+   }
+   
    
    // Mensaje de confirmacion del angulo ingresado por Monitor Serial
    Serial.print("Posicion angular: "); 
