@@ -13,8 +13,8 @@ extern "C" {
 
 
 const int ledPIN = 13;
-const char *ssid     = "MASMOVIL_2G_KRqj";
-const char *password = "@gigatron@";
+const char *ssid     = "XXXXX";
+const char *password = "XXXXX";
 
 WiFiServer server(80);
 
