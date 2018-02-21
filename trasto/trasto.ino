@@ -37,8 +37,8 @@ void Pata::move(int n) {
   }
   servos[pin].write(n);
   pos = n;
-  delay(1500);
-  //servos[pin].detach();
+  delay(15);
+  servos[pin].detach();
 };
 
 Pata pata1(8);
