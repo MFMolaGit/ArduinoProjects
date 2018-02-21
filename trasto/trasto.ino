@@ -21,6 +21,7 @@ void Pata::init() {
   servos[pin].attach(pin);
   pos = 90;
   servos[pin].write(pos);
+  delay(1200);
   servos[pin].detach();
 }
 
@@ -36,16 +37,15 @@ void Pata::move(int n) {
   }
   servos[pin].write(n);
   pos = n;
-  servos[pin].detach();
+  delay(1500);
+  //servos[pin].detach();
 };
 
-Pata pata1(10);
-Pata pata2(11);
+Pata pata1(8);
 
 void setup() {
   Serial.begin(9600);
   pata1.init();
-  pata2.init();
   // Mensaje inicial en el monitor serial
   Serial.println("Escribir la posicion de angulo de 0 a 180: ");
 }
@@ -56,7 +56,6 @@ void loop() {
  
    angulo = Serial.parseInt(); // Lee solo los datos tipo int del buffer
    if(angulo > 1) {
-     pata2.move(angulo);
      pata1.move(angulo);
    }
    
