@@ -1,13 +1,23 @@
 #include <Arduino.h>
 #include "Eje.hpp"
 
-Eje::Eje(int n) {
-  //Serial.println("Instanciando Eje");
+Eje::Eje(int idEje, int n) {
+  id = idEje;
+  
+  #ifdef TRAZAS
+  Serial.print("Instanciando Eje ");
+  Serial.println(id);
+  #endif
+  
   pin = n;
 }
 
 void Eje::init() {
-  //Serial.println("Inicializando Eje");
+  #ifdef TRAZAS
+  Serial.print("Inicializando Eje ");
+  Serial.println(id);
+  #endif
+  
   servo.attach(pin);
   pos = 90;
   servo.write(pos);
@@ -16,17 +26,25 @@ void Eje::init() {
 }
 
 void Eje::move(int nuevaPos) {
-  //Serial.println("Moviendo Eje");
+  #ifdef TRAZAS
+  Serial.print("Moviendo Eje");
+  Serial.print(id);
+  Serial.print(" a posicion ");
+  Serial.println(nuevaPos);
+  #endif
+  
   servo.attach(pin);
-  //Serial.print("Se atacha pin ");
-  //Serial.println(pin);
+  
+  #ifdef TRAZAS
+  Serial.print("Se atacha pin ");
+  Serial.println(pin);
+  #endif
+  
   for (int i=0; i<abs(pos-nuevaPos); i++){
     delay(7);
     if(pos > nuevaPos) {
-        //Serial.print("Posicion nueva menor a posicion anterior");
         servo.write(pos - i);
     } else {
-      //Serial.print("Posicion nueva mayor a posicion anterior");
         servo.write(pos + i);
     }
   }

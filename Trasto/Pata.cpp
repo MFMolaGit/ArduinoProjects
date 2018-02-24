@@ -1,26 +1,37 @@
 #include <Arduino.h>
 #include "Pata.hpp"
 
-Pata::Pata(int n, int* pins) {
-  //Serial.println("Instanciando Pata");
+Pata::Pata(int idPata, int n, int* pins) {
+  id = idPata;
+  
+  #ifdef TRAZAS  
+  Serial.print("Instanciando Pata ");
+  Serial.println(id);
+  #endif
+  
   numEjes = n;
   ejes = new Eje*[numEjes];
   for (int i = 0; i < numEjes; i++) {
-      ejes[i] = new Eje(pins[i]);
+      ejes[i] = new Eje(i+1, pins[i]);
   }
 }
 
 void Pata::init() {
-  //Serial.println("Inicializando Pata");
+  #ifdef TRAZAS  
+  Serial.print("Inicializando Pata ");
+  Serial.println(id);
+  #endif
+  
   for (int i = 0; i < numEjes; i++) {
       ejes[i]->init();
   }
 }
 
 void Pata::move(int numEje, int nuevaPos) {
-  /*Serial.print("Moviendo Eje ");
-  Serial.print(numEje);
-  Serial.print(" a posicion ");
-  Serial.println(nuevaPos);*/
+  #ifdef TRAZAS
+  Serial.print("Moviendo Pata ");
+  Serial.println(id);
+  #endif
+  
   ejes[numEje-1]->move(nuevaPos);  
 };
