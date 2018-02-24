@@ -18,20 +18,20 @@ void Eje::init() {
 void Eje::move(int nuevaPos) {
   //Serial.println("Moviendo Eje");
   servo.attach(pin);
-  Serial.print("Se atacha pin ");
-  Serial.println(pin);
-  /*for (int i=0; i<abs(pos-nuevaPos); i++){
+  //Serial.print("Se atacha pin ");
+  //Serial.println(pin);
+  for (int i=0; i<abs(pos-nuevaPos); i++){
     delay(7);
     if(pos > nuevaPos) {
-        Serial.print("Posicion nueva menor a posicion anterior");
+        //Serial.print("Posicion nueva menor a posicion anterior");
         servo.write(pos - i);
     } else {
-      Serial.print("Posicion nueva mayor a posicion anterior");
+      //Serial.print("Posicion nueva mayor a posicion anterior");
         servo.write(pos + i);
     }
-  }*/
+  }
   servo.write(nuevaPos);
   pos = nuevaPos;
-  //delay(15);
+  delay(15);
   servo.detach();
 };

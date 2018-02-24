@@ -21,11 +21,11 @@ void Cuerpo::init() {
 
 void Cuerpo::move(int numPata, int numEje, int nuevaPos) {
   //Serial.println("Moviendo cuerpo");
-  Serial.print("Moviendo Eje ");
+  /*Serial.print("Moviendo Eje ");
   Serial.print(numEje);
   Serial.print(" de Pata ");
   Serial.print(numPata);
   Serial.print(" a posicion ");
-  Serial.println(nuevaPos);
+  Serial.println(nuevaPos);*/
   patas[numPata-1]->move(numEje, nuevaPos);  
 };

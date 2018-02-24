@@ -18,9 +18,9 @@ void Pata::init() {
 }
 
 void Pata::move(int numEje, int nuevaPos) {
-  Serial.print("Moviendo Eje ");
+  /*Serial.print("Moviendo Eje ");
   Serial.print(numEje);
   Serial.print(" a posicion ");
-  Serial.println(nuevaPos);
+  Serial.println(nuevaPos);*/
   ejes[numEje-1]->move(nuevaPos);  
 };
