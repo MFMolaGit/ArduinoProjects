@@ -35,21 +35,21 @@ void Eje::move(int nuevaPos) {
   
   servo.attach(pin);
   
-  #ifdef TRAZAS
+  /*#ifdef TRAZAS
   Serial.print("Se atacha pin ");
   Serial.println(pin);
-  #endif
+  #endif*/
   
-  for (int i=0; i<abs(pos-nuevaPos); i++){
+  /*for (int i=0; i<abs(pos-nuevaPos); i++){
     delay(7);
     if(pos > nuevaPos) {
         servo.write(pos - i);
     } else {
         servo.write(pos + i);
     }
-  }
+  }*/
   servo.write(nuevaPos);
   pos = nuevaPos;
-  delay(15);
+  delay(1000);
   servo.detach();
 };
