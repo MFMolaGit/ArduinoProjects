@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "Eje.hpp"
 
+Adafruit_PWMServoDriver Eje::controller = Adafruit_PWMServoDriver(0x40);
+
 Eje::Eje(int idEje, int n) {
   id = idEje;
   
@@ -17,12 +19,18 @@ void Eje::init() {
   Serial.print("Inicializando Eje ");
   Serial.println(id);
   #endif
+
+  controller.begin(); 
+  controller.setPWMFreq(60); //Frecuecia PWM de 60Hz o T=16,66ms
   
-  servo.attach(pin);
+  /*servo.attach(pin);
   pos = 90;
   servo.write(pos);
   delay(1200);
-  servo.detach();
+  servo.detach();*/
+
+  int pulselength = map(90, 0, 180, SERVOMIN, SERVOMAX);
+  controller.setPWM(pin,0,pulselength);
 }
 
 void Eje::move(int nuevaPos) {
@@ -32,8 +40,6 @@ void Eje::move(int nuevaPos) {
   Serial.print(" a posicion ");
   Serial.println(nuevaPos);
   #endif
-  
-  servo.attach(pin);
   
   /*#ifdef TRAZAS
   Serial.print("Se atacha pin ");
@@ -48,8 +54,10 @@ void Eje::move(int nuevaPos) {
         servo.write(pos + i);
     }
   }*/
-  servo.write(nuevaPos);
+  /*servo.write(nuevaPos);
   pos = nuevaPos;
   delay(1000);
-  servo.detach();
+  servo.detach();*/
+  int pulselength = map(nuevaPos, 0, 180, SERVOMIN, SERVOMAX);
+  controller.setPWM(pin,0,pulselength);
 };

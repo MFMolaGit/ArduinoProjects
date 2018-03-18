@@ -6,9 +6,9 @@ int** initParams() {
     pins[i] = new int[EJES];
   }
 
-  pins[0][0] = 8; //Pata 1 Eje 1 => Pin 8
-  pins[0][1] = 9; //Pata 1 Eje 2 => Pin 9
-  pins[0][2] = 10; //Pata 1 Eje 3 => Pin 10
+  pins[0][0] = 0; //Pata 1 Eje 1 => Canal 0
+  pins[0][1] = 1; //Pata 1 Eje 2 => Canal 1
+  pins[0][2] = 2; //Pata 1 Eje 3 => Canal 2
   
   return pins;
 }
@@ -29,7 +29,7 @@ void setup() {
   cuerpo->init();
   Serial.println("---------------------------");
   // Mensaje inicial en el monitor serial
-  Serial.println("Escribir comando (Pata-Eje-Angulo): ");
+  Serial.println("Escribir comando (m/sPata-Eje-Angulo): ");
 }
 
 char checkOption(String command) {
@@ -44,7 +44,7 @@ void readMove(String command) {
   BasicMovementType movement;
   String tail = command.substring(1);
   Serial.println(tail);
-  char * pch = strtok (tail.c_str(),"-");
+  char* pch = strtok(tail.c_str(),"-");
   int i = 0;
   while (pch != NULL) {
     switch(i) {
