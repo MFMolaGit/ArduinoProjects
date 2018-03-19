@@ -6,7 +6,7 @@ class Pata {
     Eje** ejes;   
     int numEjes;
   public:
-    Pata(int, int, int*);
+    Pata(int, int, int*, Adafruit_PWMServoDriver);
     void init();    
     void move(int, int);
 };

@@ -3,7 +3,7 @@
 
 Cuerpo::Cuerpo() {}
 
-Cuerpo::Cuerpo(int n, int m, int **pinsPorPata) {
+Cuerpo::Cuerpo(int n, int m, int **pinsPorPata, Adafruit_PWMServoDriver controller) {
   
   #ifdef TRAZAS
   Serial.println("Instanciando cuerpo con ");
@@ -16,7 +16,7 @@ Cuerpo::Cuerpo(int n, int m, int **pinsPorPata) {
   numPatas = n;
   patas = new Pata*[numPatas];
   for (int i = 0; i < numPatas; i++) {
-    patas[i] = new Pata(i+1, m, pinsPorPata[i]);
+    patas[i] = new Pata(i+1, m, pinsPorPata[i], controller);
   }
 }
 

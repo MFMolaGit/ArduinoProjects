@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "Pata.hpp"
 
-Pata::Pata(int idPata, int n, int* pins) {
+Pata::Pata(int idPata, int n, int* pins, Adafruit_PWMServoDriver controller) {
   id = idPata;
   
   #ifdef TRAZAS  
@@ -12,7 +12,7 @@ Pata::Pata(int idPata, int n, int* pins) {
   numEjes = n;
   ejes = new Eje*[numEjes];
   for (int i = 0; i < numEjes; i++) {
-      ejes[i] = new Eje(i+1, pins[i]);
+      ejes[i] = new Eje(i+1, pins[i], controller);
   }
 }
 

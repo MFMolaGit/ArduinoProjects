@@ -6,9 +6,25 @@ int** initParams() {
     pins[i] = new int[EJES];
   }
 
-  pins[0][0] = 0; //Pata 1 Eje 1 => Canal 0
-  pins[0][1] = 1; //Pata 1 Eje 2 => Canal 1
-  pins[0][2] = 2; //Pata 1 Eje 3 => Canal 2
+  pins[0][0] = 15; //Pata 1 Eje 1 => Canal 15
+  pins[0][1] = 14; //Pata 1 Eje 2 => Canal 14
+  pins[0][2] = 13; //Pata 1 Eje 3 => Canal 13
+  //12
+  
+  pins[1][0] = 11; //Pata 2 Eje 1 => Canal 11
+  pins[1][1] = 10; //Pata 2 Eje 3 => Canal 10
+  pins[1][2] = 9; //Pata 2 Eje 3 => Canal 9
+  //8
+  
+  pins[2][0] = 7; //Pata 3 Eje 1 => Canal 7
+  pins[2][1] = 6; //Pata 3 Eje 2 => Canal 6
+  pins[2][2] = 5; //Pata 3 Eje 3 => Canal 5
+  //4
+
+  pins[3][0] = 3; //Pata 3 Eje 1 => Canal 3
+  pins[3][1] = 2; //Pata 3 Eje 2 => Canal 2
+  pins[3][2] = 1; //Pata 3 Eje 3 => Canal 1
+  //0
   
   return pins;
 }
@@ -21,11 +37,15 @@ struct BasicMovementType {
   int pata;
   int eje;
   int angulo;
-} movements[PATAS*EJES*50];
+} movements[PATAS*EJES*20];
+Adafruit_PWMServoDriver controller = Adafruit_PWMServoDriver(0x40);
 
-void setup() {  
-  Serial.begin(9600);
-  cuerpo = new Cuerpo(PATAS,EJES,initParams());
+void setup() {
+  controller.begin();
+  controller.setPWMFreq(60); //Frecuecia PWM de 60Hz o T=16,66ms
+  
+  Serial.begin(9600);  
+  cuerpo = new Cuerpo(PATAS,EJES,initParams(), controller);
   cuerpo->init();
   Serial.println("---------------------------");
   // Mensaje inicial en el monitor serial
